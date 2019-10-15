@@ -70,6 +70,19 @@ void BST<T>::remove(const T& item)
  */
 
 template<typename T>
+bool BST<T>::contain(const T& item, BinaryNode* node) const
+{
+	if (node == nullptr)
+		return false;
+	if (item < node->element_)
+		return contain(item, node->left_);
+	else if (item > node->element_)
+		return contain(item, node->right_);
+	else
+		return true;
+}
+
+template<typename T>
 void BST<T>::insert(const T& item, BinaryNode*& node)
 {
 	if (node == nullptr)
@@ -103,6 +116,18 @@ void BST<T>::remove(const T& item, BinaryNode* node)
 		delete temp;
 		temp = nullptr;
 	}
+}
+
+template<typename T>
+void BST<T>::makeEmpty(BinaryNode*& node)
+{
+	if (node != nullptr)
+	{
+		makeEmpty(node->left_);
+		makeEmpty(node->right_);
+		delete node;
+	}
+	node = nullptr;
 }
 
 template<typename T>
@@ -143,31 +168,6 @@ typename BST<T>::BinaryNode* BST<T>::findMax(BinaryNode* node) const
 			node = node->right_;
 	return node;
 	*/
-}
-
-template<typename T>
-bool BST<T>::contain(const T& item, BinaryNode* node) const
-{
-	if (node == nullptr)
-		return false;
-	if (item < node->element_)
-		return contain(item, node->left_);
-	else if (item > node->element_)
-		return contain(item, node->right_);
-	else
-		return true;
-}
-
-template<typename T>
-void BST<T>::makeEmpty(BinaryNode*& node)
-{
-	if (node != nullptr)
-	{
-		makeEmpty(node->left_);
-		makeEmpty(node->right_);
-		delete node;
-	}
-	node = nullptr;
 }
 
 template<typename T>
